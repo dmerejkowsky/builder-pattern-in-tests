@@ -1,4 +1,6 @@
-﻿namespace Users.Tests;
+﻿using Shouldly;
+
+namespace Users.Tests;
 
 // Using the Builder pattern - lots of method that mutate
 // and return `this` 
@@ -56,5 +58,14 @@ public class AMinor
     public static UserBuilder Named(string name)
     {
         return new UserBuilder(name, 16, false);
+    }
+}
+
+// To have better assertions
+public static class UserTestExtensions
+{
+    public static void ShouldBeRegistered(this User user)
+    {
+        user.Registered.ShouldBeTrue();
     }
 }

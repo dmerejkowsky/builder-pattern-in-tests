@@ -1,3 +1,4 @@
+using Shouldly;
 namespace Users.Tests;
 
 
@@ -8,19 +9,15 @@ public class UsersTests
     public void TestUsingBuilders()
     {
         var alice = AUser.Named("Alice").Build();
+        alice.Name.ShouldBe("Alice");
+
         var bob = AUser.Named("Bob").Registered().Build();
+        bob.Name.ShouldBe("Bob");
+        bob.ShouldBeRegistered();
+
         var charlie = AMinor.Named("Charlie").Build();
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(alice.Name, Is.EqualTo("Alice"));
-
-            Assert.That(bob.Name, Is.EqualTo("Bob"));
-            Assert.That(bob.Registered, Is.True);
-
-            Assert.That(charlie.Name, Is.EqualTo("Charlie"));
-            Assert.That(charlie.Age, Is.LessThan(18));
-        });
+        charlie.Name.ShouldBe("Charlie");
+        charlie.Age.ShouldBeLessThan(18);
     }
 
     [Test]
@@ -28,6 +25,6 @@ public class UsersTests
     {
         var builder = new UserBuilder("One", 20, false);
         var alice = builder.Named("One").Registered().Build();
-        var bob = builder.Named("Two").Build();
+        Should.Throw<Exception>(() => builder.Named("Two").Build());
     }
 }
