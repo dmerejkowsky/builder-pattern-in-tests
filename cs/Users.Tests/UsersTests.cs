@@ -11,9 +11,10 @@ public class UsersTests
         var alice = AUser.Named("Alice").Build();
         alice.Name.ShouldBe("Alice");
 
-        var bob = AUser.Named("Bob").Registered().Build();
+        var bob = AUser.Named("Bob").Registered().Aged(23).Build();
         bob.Name.ShouldBe("Bob");
         bob.ShouldBeRegistered();
+        bob.Age.ShouldBe(23);
 
         var charlie = AMinor.Named("Charlie").Build();
         charlie.Name.ShouldBe("Charlie");

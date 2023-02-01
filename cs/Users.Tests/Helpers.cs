@@ -23,6 +23,12 @@ public class UserBuilder
         _name = name;
         return this;
     }
+    public UserBuilder Aged(int age)
+    {
+        _age = age;
+        return this;
+    }
+
 
     public UserBuilder Registered()
     {
